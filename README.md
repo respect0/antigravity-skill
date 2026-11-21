@@ -2,7 +2,7 @@
 
 A Claude Code skill and sub-agent that route a session's work to Google
 Antigravity (`agy` CLI) models. Typing `/antigravity` turns the mode on: the
-main loop plans, writes briefs in English and checks results; `antigravity`
+main loop (Claude Fable 5.2, the orchestrator) plans, writes briefs in English and checks results; `antigravity`
 sub-agents run the work through `agy`.
 
 ## Model routing (always `-high`)

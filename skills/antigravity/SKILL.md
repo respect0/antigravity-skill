@@ -1,6 +1,6 @@
 ---
 name: antigravity
-description: "Antigravity mode: routes this session's work to Google Antigravity (agy CLI) sub-agents. The main loop plans, writes briefs in English and checks results; `antigravity` sub-agents do the work. Model routing (always high): default gemini-4-neon-high, hard reasoning/comparison gemini-4-argon-high, easy and fast work gemini-3.8-flash-high, Blender model production claude-opus-5-5-high. Load when the user types /antigravity or says 'Antigravity ile yap', 'Gemini'ye yaptır', 'agy alt ajanları kullan', 'use Antigravity', 'have Gemini do it'."
+description: "Antigravity mode: routes this session's work to Google Antigravity (agy CLI) sub-agents. The main loop (Claude Fable 5.2, the orchestrator) plans, writes briefs in English and checks results; `antigravity` sub-agents do the work. Model routing (always high): default gemini-4-neon-high, hard reasoning/comparison gemini-4-argon-high, easy and fast work gemini-3.8-flash-high, Blender model production claude-opus-5-5-high. Load when the user types /antigravity or says 'Antigravity ile yap', 'Gemini'ye yaptır', 'agy alt ajanları kullan', 'use Antigravity', 'have Gemini do it'."
 argument-hint: "[task]"
 ---
 
@@ -11,6 +11,14 @@ rest of the session. You (the main loop) split the work into pieces, pick a
 model for each, write the brief, check the result and report to the user. The
 mode stays on until the user says to stop using Antigravity or to do the work
 yourself.
+
+**The orchestrator is Claude Fable 5.2** (`claude-fable-5-2`). The main loop
+runs on Fable and stays there: its tokens go to planning, briefs, hard calls
+and checking results, not to doing the work. Never spawn Fable as a sub-agent
+for the work itself, and always pass `model: "haiku"` on the `antigravity`
+wrapper call so it does not inherit Fable. If the session is running on a
+different model when the mode is turned on, tell the user in one line and
+carry on.
 
 If an argument was given, start that task now under these rules. With no
 argument, say in one line that the mode is on and apply it from the next
